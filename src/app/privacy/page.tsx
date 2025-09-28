@@ -192,10 +192,10 @@ export default function PrivacyPolicy() {
               </p>
               <div className="bg-slate-700 rounded-lg p-4">
                 <p className="text-slate-300">
-                  Email: privacy@sealthedeal.app<br />
+                  Email: privacy@www.sealthedeal.app<br />
                   Address: [Your Business Address]<br />
                   Phone: [Your Phone Number]<br />
-                  Data Protection Officer: dpo@sealthedeal.app
+                  Data Protection Officer: dpo@www.sealthedeal.app
                 </p>
               </div>
             </section>

@@ -46,7 +46,7 @@ export async function sendEmail(options: EmailOptions): Promise<boolean> {
 
   try {
     const msg = {
-      from: options.from || `SealTheDeal <contracts@sealthedeal.app>`,
+      from: options.from || `SealTheDeal <contracts@www.sealthedeal.app>`,
       to: Array.isArray(options.to) ? options.to.join(', ') : options.to,
       subject: options.subject,
       text: options.text,
@@ -111,7 +111,7 @@ export async function sendContractForSignature(data: ContractEmailData): Promise
         
         <p><strong>Important:</strong> Please review the contract carefully before signing. Once signed, the contract will be legally binding.</p>
         
-        <p>If you have any questions about this contract, please contact ${data.senderName} at <a href="mailto:support@sealthedeal.app">support@sealthedeal.app</a>.</p>
+        <p>If you have any questions about this contract, please contact ${data.senderName} at <a href="mailto:support@www.sealthedeal.app">support@www.sealthedeal.app</a>.</p>
       </div>
       
       <div class="footer">
@@ -140,7 +140,7 @@ To sign the contract, please visit: ${data.contractUrl}
 
 Important: Please review the contract carefully before signing. Once signed, the contract will be legally binding.
 
-If you have any questions, please contact ${data.senderName} at <a href="mailto:support@sealthedeal.app">support@sealthedeal.app</a>.
+If you have any questions, please contact ${data.senderName} at <a href="mailto:support@www.sealthedeal.app">support@www.sealthedeal.app</a>.
 
 ---
 This email was sent by SealTheDeal - Professional Contract Management
@@ -206,7 +206,7 @@ export async function sendFinalSignedContract(data: FinalContractEmailData): Pro
           <li>Begin fulfilling the terms of the contract</li>
         </ul>
         
-        <p>If you have any questions about this contract, please contact ${data.senderName} at <a href="mailto:support@sealthedeal.app">support@sealthedeal.app</a>.</p>
+        <p>If you have any questions about this contract, please contact ${data.senderName} at <a href="mailto:support@www.sealthedeal.app">support@www.sealthedeal.app</a>.</p>
       </div>
       
       <div class="footer">
@@ -236,7 +236,7 @@ Next Steps:
 - Share with relevant parties as needed
 - Begin fulfilling the terms of the contract
 
-If you have any questions, please contact ${data.senderName} at <a href="mailto:support@sealthedeal.app">support@sealthedeal.app</a>.
+If you have any questions, please contact ${data.senderName} at <a href="mailto:support@www.sealthedeal.app">support@www.sealthedeal.app</a>.
 
 ---
 This email was sent by SealTheDeal - Professional Contract Management
@@ -296,7 +296,7 @@ export async function sendContractReminder(data: ContractEmailData): Promise<boo
           <a href="${data.contractUrl}" class="button">Sign Contract Now</a>
         </div>
         
-        <p>If you have any questions about this contract, please contact ${data.senderName} at <a href="mailto:support@sealthedeal.app">support@sealthedeal.app</a>.</p>
+        <p>If you have any questions about this contract, please contact ${data.senderName} at <a href="mailto:support@www.sealthedeal.app">support@www.sealthedeal.app</a>.</p>
       </div>
       
       <div class="footer">
@@ -321,7 +321,7 @@ Please take a moment to review and sign the contract to complete the process.
 
 To sign the contract, please visit: ${data.contractUrl}
 
-If you have any questions, please contact ${data.senderName} at <a href="mailto:support@sealthedeal.app">support@sealthedeal.app</a>.
+If you have any questions, please contact ${data.senderName} at <a href="mailto:support@www.sealthedeal.app">support@www.sealthedeal.app</a>.
 
 ---
 This email was sent by SealTheDeal - Professional Contract Management
