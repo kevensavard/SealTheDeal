@@ -490,18 +490,17 @@ export default function Home() {
             <div>
               <h4 className="font-semibold mb-4">Product</h4>
               <ul className="space-y-2">
-                <li><a href="#" className="text-slate-400 hover:text-white transition-colors">Features</a></li>
-                <li><a href="#" className="text-slate-400 hover:text-white transition-colors">Pricing</a></li>
-                <li><a href="#" className="text-slate-400 hover:text-white transition-colors">Templates</a></li>
-                <li><a href="#" className="text-slate-400 hover:text-white transition-colors">API</a></li>
+                <li><Link href="/features" className="text-slate-400 hover:text-white transition-colors">Features</Link></li>
+                <li><Link href="/pricing" className="text-slate-400 hover:text-white transition-colors">Pricing</Link></li>
+                <li><Link href="/templates" className="text-slate-400 hover:text-white transition-colors">Templates</Link></li>
               </ul>
             </div>
             
             <div>
               <h4 className="font-semibold mb-4">Company</h4>
               <ul className="space-y-2">
-                <li><a href="#" className="text-slate-400 hover:text-white transition-colors">About</a></li>
-                <li><a href="#" className="text-slate-400 hover:text-white transition-colors">Contact</a></li>
+                <li><Link href="/about" className="text-slate-400 hover:text-white transition-colors">About</Link></li>
+                <li><Link href="/contact" className="text-slate-400 hover:text-white transition-colors">Contact</Link></li>
                 <li><Link href="/terms" className="text-slate-400 hover:text-white transition-colors">Terms</Link></li>
                 <li><Link href="/privacy" className="text-slate-400 hover:text-white transition-colors">Privacy</Link></li>
               </ul>
