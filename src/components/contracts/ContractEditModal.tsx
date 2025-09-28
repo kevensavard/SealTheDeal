@@ -106,7 +106,7 @@ export default function ContractEditModal({ contract, isOpen, onClose, onSave }:
             {/* Title */}
             <div>
               <label htmlFor="title" className="block text-sm font-medium text-slate-300 mb-2">
-                {t.contractTitle}
+                Contract Title
               </label>
               <input
                 type="text"
@@ -114,7 +114,7 @@ export default function ContractEditModal({ contract, isOpen, onClose, onSave }:
                 value={formData.title}
                 onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
                 className="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder={t.contractTitlePlaceholder}
+                placeholder="Enter contract title"
                 required
               />
             </div>
@@ -143,7 +143,7 @@ export default function ContractEditModal({ contract, isOpen, onClose, onSave }:
               <label htmlFor="expiresAt" className="block text-sm font-medium text-slate-300 mb-2">
                 <div className="flex items-center gap-2">
                   <CalendarIcon className="w-4 h-4" />
-                  {t.expirationDate} ({t.optional})
+                  Expiration Date (Optional)
                 </div>
               </label>
               <input
@@ -158,7 +158,7 @@ export default function ContractEditModal({ contract, isOpen, onClose, onSave }:
             {/* Content */}
             <div>
               <label htmlFor="content" className="block text-sm font-medium text-slate-300 mb-2">
-                {t.contractContent}
+                Contract Content
               </label>
               <textarea
                 id="content"
@@ -166,7 +166,7 @@ export default function ContractEditModal({ contract, isOpen, onClose, onSave }:
                 onChange={(e) => setFormData(prev => ({ ...prev, content: e.target.value }))}
                 rows={20}
                 className="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent font-mono text-sm"
-                placeholder={t.contractContentPlaceholder}
+                placeholder="Enter contract content..."
                 required
               />
             </div>
@@ -187,7 +187,7 @@ export default function ContractEditModal({ contract, isOpen, onClose, onSave }:
               disabled={isLoading}
               className="px-6 py-3 bg-gradient-to-r from-blue-500 to-emerald-500 text-white rounded-lg font-medium hover:shadow-lg transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:transform-none"
             >
-              {isLoading ? t.saving : t.saveChanges}
+              {isLoading ? 'Saving...' : t.saveChanges}
             </button>
           </div>
         </form>
