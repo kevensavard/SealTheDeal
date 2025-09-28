@@ -402,7 +402,7 @@ export default function AdminPage() {
                           </div>
                           <div className="text-right">
                             <p className="text-slate-300 text-sm">
-                              {backup.recordCount ? `${Object.values(backup.recordCount).reduce((a: number, b: number) => a + b, 0)} records` : 'Unknown size'}
+                              {backup.recordCount ? `${(Object.values(backup.recordCount) as number[]).reduce((a: number, b: number) => a + b, 0)} records` : 'Unknown size'}
                             </p>
                             <span className={`px-2 py-1 rounded text-xs ${
                               backup.status === 'success' 

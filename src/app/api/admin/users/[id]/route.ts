@@ -19,7 +19,7 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
 
   try {
     const targetUser = await prisma.user.findUnique({
-      where: { id: params.id },
+      where: { id: id },
       include: {
         _count: {
           select: {
@@ -111,7 +111,7 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
     if (lastName !== undefined) updateData.lastName = lastName;
 
     const updatedUser = await prisma.user.update({
-      where: { id: params.id },
+      where: { id: id },
       data: updateData,
       include: {
         _count: {
@@ -162,7 +162,7 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
 
   try {
     // Prevent admin from deleting themselves
-    if (user.id === params.id) {
+    if (user.id === id) {
       return NextResponse.json({ 
         error: 'Cannot delete your own account' 
       }, { status: 400 });
@@ -170,7 +170,7 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
 
     // Check if user exists
     const targetUser = await prisma.user.findUnique({
-      where: { id: params.id }
+      where: { id: id }
     });
 
     if (!targetUser) {
@@ -179,7 +179,7 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
 
     // Delete user (this will cascade delete contracts, clients, etc.)
     await prisma.user.delete({
-      where: { id: params.id }
+      where: { id: id }
     });
 
     return NextResponse.json({
