@@ -43,7 +43,6 @@ export const en = {
   prioritySupport: 'Priority support',
   contractTemplates: 'Contract templates',
   upgradeToPro: 'Upgrade to Pro',
-  manageSubscription: 'Manage Subscription',
   usageThisMonth: 'Usage this month',
   contractsGenerated: 'contracts generated',
   contractsRemaining: 'contracts remaining',
