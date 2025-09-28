@@ -1,0 +1,192 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  clerkId   String   @unique
+  email     String   @unique
+  firstName String?
+  lastName  String?
+  tier      UserTier @default(FREE)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  contracts     Contract[]
+  clients       Client[]
+  notifications Notification[]
+  supportTickets SupportTicket[]
+
+  @@map("users")
+}
+
+model BackupLog {
+  id          String   @id @default(cuid())
+  type        String   // 'full', 'user', 'scheduled'
+  userId      String?  // For user-specific backups
+  status      String   // 'success', 'failed', 'in_progress'
+  filePath    String?
+  recordCount Json?    // Count of records backed up
+  error       String?  // Error message if failed
+  createdAt   DateTime @default(now())
+  completedAt DateTime?
+
+  @@map("backup_logs")
+}
+
+model Contract {
+  id             String      @id @default(cuid())
+  title          String
+  content        String
+  status         ContractStatus @default(DRAFT)
+  templateId     String?
+  userId         String
+  clientId       String?
+  parties        Json?       // Array of party objects with name, email, role
+  expiresAt      DateTime?
+  sentAt         DateTime?
+  signedAt       DateTime?
+  signatureToken String?     @unique
+  signerName     String?
+  signerEmail    String?
+  signatureData  String?     // Base64 encoded signature image
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+
+  user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  client        Client?        @relation(fields: [clientId], references: [id], onDelete: SetNull)
+  signers       ContractSigner[]
+  notifications Notification[]
+
+  @@map("contracts")
+}
+
+model ContractSigner {
+  id            String   @id @default(cuid())
+  contractId    String
+  signerName    String
+  signerEmail   String
+  role          String   // "contractor", "client", "witness", etc.
+  signatureToken String? @unique
+  passwordHash  String?  // Hashed password for accessing the signing link
+  signedAt      DateTime?
+  signatureData String?  // Base64 encoded signature image
+  signatureTime String?  // Time of signature (e.g., "2:30 PM")
+  signatureLocation String? // Location where signed (e.g., "New York, NY")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  contract Contract @relation(fields: [contractId], references: [id], onDelete: Cascade)
+
+  @@map("contract_signers")
+}
+
+model Client {
+  id          String   @id @default(cuid())
+  firstName   String
+  lastName    String
+  company     String?
+  email       String
+  phone       String?
+  address     String?
+  notes       String?
+  userId      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  contracts     Contract[]
+  notifications Notification[]
+
+  @@map("clients")
+}
+
+model Template {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  content     String
+  category    String?
+  isPublic    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("templates")
+}
+
+model Notification {
+  id          String           @id @default(cuid())
+  type        NotificationType
+  title       String
+  message     String
+  isRead      Boolean          @default(false)
+  userId      String
+  contractId  String?
+  clientId    String?
+  metadata    Json?
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  contract Contract? @relation(fields: [contractId], references: [id], onDelete: Cascade)
+  client   Client?   @relation(fields: [clientId], references: [id], onDelete: Cascade)
+
+  @@map("notifications")
+}
+
+model SupportTicket {
+  id          String   @id @default(cuid())
+  userId      String
+  type        String   // 'CONTACT', 'BUG_REPORT', 'FEATURE_REQUEST'
+  title       String
+  description String
+  priority    String   // 'low', 'medium', 'high', 'critical'
+  status      String   // 'OPEN', 'IN_PROGRESS', 'RESOLVED', 'CLOSED'
+  userEmail   String
+  userName    String
+  metadata    Json?    // Additional data specific to ticket type
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("support_tickets")
+}
+
+enum ContractStatus {
+  DRAFT
+  SENT
+  SIGNED
+  EXPIRED
+  CANCELLED
+}
+
+enum UserTier {
+  FREE
+  PRO
+  ADMIN
+}
+
+enum NotificationType {
+  CONTRACT_CREATED
+  CONTRACT_SENT
+  CONTRACT_SIGNED
+  CONTRACT_COMPLETED
+  CONTRACT_EXPIRED
+  CONTRACT_EXPIRING_SOON
+  CONTRACT_CANCELLED
+  CLIENT_ADDED
+  SIGNATURE_REMINDER
+  SYSTEM_ALERT
+  SUPPORT_TICKET_CREATED
+  SUPPORT_TICKET_UPDATED
+  SUPPORT_TICKET_RESOLVED
+}
