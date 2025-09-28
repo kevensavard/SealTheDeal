@@ -3,14 +3,23 @@ import Link from 'next/link';
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-slate-900">
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-slate-900/80 backdrop-blur-md border-b border-slate-700 z-50">
+    <>
+      {/* SEO Meta Tags */}
+      <head>
+        <title>SealTheDeal - AI-Powered Contract Management & E-Signature Platform</title>
+        <meta name="description" content="Generate, customize, and sign professional contracts in seconds. AI-powered contract creation, multi-party e-signatures, and smart client management for freelancers, startups, and small businesses." />
+        <meta name="keywords" content="contract management, e-signature, digital contracts, AI contract generator, electronic signature, contract templates, freelance contracts, business contracts, legal documents, contract automation" />
+        <link rel="canonical" href="https://sealthedeal.app" />
+      </head>
+
+      <div className="min-h-screen bg-slate-900">
+        {/* Navigation */}
+        <nav className="fixed top-0 w-full bg-slate-900/80 backdrop-blur-md border-b border-slate-700 z-50" role="navigation" aria-label="Main navigation">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <h1 className="text-2xl font-bold gradient-text">SealTheDeal</h1>
+                <Link href="/" className="text-2xl font-bold gradient-text" aria-label="SealTheDeal Home">SealTheDeal</Link>
               </div>
             </div>
             <div className="hidden md:block">
@@ -34,12 +43,13 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+      <main>
+        <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8" id="hero">
         <div className="max-w-7xl mx-auto">
           <div className="text-center">
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
-              Seal The Deal in{' '}
-              <span className="gradient-text">Seconds</span>
+              AI Contract Generator - Create & Sign{' '}
+              <span className="gradient-text">Professional Contracts in Seconds</span>
             </h1>
             <p className="text-xl md:text-2xl text-slate-300 mb-12 max-w-3xl mx-auto leading-relaxed">
               Generate, customize, and sign professional contracts without the legal headaches.
@@ -73,7 +83,7 @@ export default function Home() {
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* AI Contract Generation */}
-            <div className="bg-slate-700 p-8 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border border-slate-600">
+            <article className="bg-slate-700 p-8 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border border-slate-600">
               <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-emerald-500 rounded-xl flex items-center justify-center mb-6">
                 <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
@@ -83,7 +93,7 @@ export default function Home() {
               <p className="text-slate-300 leading-relaxed">
                 Generate professional contracts in seconds with OpenAI GPT. Supports Freelance, Car Sales, Property Rental, Equipment Lease, and custom contracts.
               </p>
-            </div>
+            </article>
 
             {/* E-Signature */}
             <div className="bg-slate-700 p-8 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border border-slate-600">
@@ -359,6 +369,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      </main>
 
       {/* Pricing Section */}
       <section id="pricing" className="py-20 bg-slate-800">
@@ -460,7 +471,7 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-slate-900 text-white py-16">
+      <footer className="bg-slate-900 text-white py-16" role="contentinfo">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-4 gap-8">
             <div className="md:col-span-2">
@@ -515,5 +526,6 @@ export default function Home() {
         </div>
       </footer>
     </div>
+    </>
   );
 }
