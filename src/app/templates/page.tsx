@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { DocumentTextIcon, ArrowRightIcon, CheckIcon } from '@heroicons/react/24/outline';
+import { DocumentTextIcon, CheckIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
 
 export default function TemplatesPage() {
   const templates = [
@@ -184,13 +184,6 @@ export default function TemplatesPage() {
                   </div>
                 </div>
 
-                <Link
-                  href={`/create-contract?template=${template.id}`}
-                  className="w-full bg-gradient-to-r from-blue-500 to-emerald-500 text-white py-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-200 transform hover:scale-105 flex items-center justify-center gap-2"
-                >
-                  Use Template
-                  <ArrowRightIcon className="w-4 h-4" />
-                </Link>
               </div>
             ))}
           </div>
@@ -201,18 +194,18 @@ export default function TemplatesPage() {
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-blue-500/10 to-emerald-500/10">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl font-bold text-white mb-6">
-            Can't Find the Right Template?
+            Ready to Create Professional Contracts?
           </h2>
           <p className="text-xl text-slate-300 mb-8">
-            Our AI can generate custom contracts for any situation. Just describe what you need and we'll create a professional contract tailored to your requirements.
+            Sign up for free and start using these templates plus our AI-powered contract generator to create custom contracts for any situation.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/create-contract" className="bg-gradient-to-r from-blue-500 to-emerald-500 text-white px-8 py-4 rounded-full text-lg font-semibold hover:shadow-xl transition-all duration-200 transform hover:scale-105 flex items-center justify-center gap-2">
-              Create Custom Contract
+            <Link href="/sign-up" className="bg-gradient-to-r from-blue-500 to-emerald-500 text-white px-8 py-4 rounded-full text-lg font-semibold hover:shadow-xl transition-all duration-200 transform hover:scale-105 flex items-center justify-center gap-2">
+              Get Started Free
               <ArrowRightIcon className="w-5 h-5" />
             </Link>
             <Link href="/contact" className="border border-slate-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-slate-800 transition-all duration-200">
-              Request Template
+              Contact Us
             </Link>
           </div>
         </div>
