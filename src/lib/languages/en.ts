@@ -50,7 +50,7 @@ export const en = {
   // Preferences
   preferences: 'Preferences',
   customizeExperience: 'Customize your experience and notification settings',
-  notifications: 'Notifications',
+  notificationSettings: 'Notifications',
   emailNotifications: 'Email Notifications',
   emailNotificationsDesc: 'Receive email updates about your contracts and account',
   contractReminders: 'Contract Reminders',
@@ -165,7 +165,7 @@ export const en = {
   allCompanies: 'All Companies',
 
   // Notifications
-  notifications: 'Notifications',
+  notificationsFeed: 'Notifications',
   activityFeed: 'Activity Feed',
   noNotifications: 'No notifications yet',
   noNotificationsDesc: 'Your activity feed will appear here as you create contracts and add clients.',
@@ -260,7 +260,7 @@ export const en = {
   exportDataDesc: 'Download a complete copy of all your data stored in SealTheDeal.',
   exportIncludes: 'Export includes:',
   personalInfo: 'Personal information',
-  notifications: 'Notifications history',
+  notificationsHistory: 'Notifications history',
   accountSettings: 'Account settings and preferences',
   exportMyData: 'Export My Data',
   exporting: 'Exporting...',
