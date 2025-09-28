@@ -198,7 +198,7 @@ export const en = {
   contractExpired: 'Contract Expired',
   contractExpiringSoon: 'Contract Expiring Soon',
   contractCancelled: 'Contract Cancelled',
-  clientAdded: 'New Client Added',
+  newClientAdded: 'New Client Added',
   signatureReminder: 'Signature Reminder',
   systemAlert: 'System Alert',
   justNow: 'Just now',
