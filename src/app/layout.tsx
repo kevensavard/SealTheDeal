@@ -43,6 +43,14 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://sealthedeal.app',
   },
+  icons: {
+    icon: [
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+    ],
+    shortcut: '/favicon-32x32.png',
+    apple: '/favicon-32x32.png',
+  },
   openGraph: {
     title: 'SealTheDeal - AI-Powered Contract Management & E-Signature Platform',
     description: 'Generate, customize, and sign professional contracts in seconds. AI-powered contract creation, multi-party e-signatures, and smart client management.',
@@ -50,10 +58,10 @@ export const metadata: Metadata = {
     siteName: 'SealTheDeal',
     images: [
       {
-        url: '/og-image.png',
+        url: '/opengraph-image',
         width: 1200,
         height: 630,
-        alt: 'SealTheDeal - Professional Contract Management Platform',
+        alt: 'SealTheDeal - AI Contract Generator & E-Signature Platform',
       },
     ],
     locale: 'en_US',
@@ -63,7 +71,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'SealTheDeal - AI-Powered Contract Management & E-Signature Platform',
     description: 'Generate, customize, and sign professional contracts in seconds. AI-powered contract creation, multi-party e-signatures, and smart client management.',
-    images: ['/og-image.png'],
+    images: ['/opengraph-image'],
     creator: '@sealthedeal',
   },
   robots: {
@@ -93,9 +101,6 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <head>
-          <link rel="icon" href="/favicon.ico" />
-          <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-          <link rel="manifest" href="/manifest.json" />
           <meta name="theme-color" content="#1e293b" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           
