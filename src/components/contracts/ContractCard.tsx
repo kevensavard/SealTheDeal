@@ -355,14 +355,16 @@ export default function ContractCard({ contract, onEdit, onDelete, onStatusChang
           </div>
           
           {/* Signature Information for Signed Contracts */}
-          {contract.status === 'SIGNED' && contract.signerName && (
+          {contract.status === 'SIGNED' && contract.signers && contract.signers.length > 0 && (
             <div className="mt-3 p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-lg">
               <div className="flex items-center gap-2 text-emerald-400 text-sm">
                 <CheckCircleIcon className="w-4 h-4" />
-                <span className="font-medium">Signed by {contract.signerName}</span>
+                <span className="font-medium">
+                  Signed by {contract.signers.map(signer => signer.signerName).join(', ')}
+                </span>
               </div>
-              {contract.signerEmail && (
-                <p className="text-slate-400 text-xs mt-1">{contract.signerEmail}</p>
+              {contract.signers[0]?.signerEmail && (
+                <p className="text-slate-400 text-xs mt-1">{contract.signers[0].signerEmail}</p>
               )}
             </div>
           )}
