@@ -1,12 +1,12 @@
 import { auth } from '@clerk/nextjs/server';
 import { prisma } from '@/lib/prisma';
-import { NextResponse } from 'next/server';
+import { NextResponse, NextRequest } from 'next/server';
 import { createContractNotification } from '@/lib/notifications';
 import { validateContractData, parseAndValidateJSON, ValidationError } from '@/lib/validation';
 import { withRateLimit } from '@/lib/rateLimit';
 import { checkContractLimit } from '@/lib/contractLimits';
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const clerkId = searchParams.get('clerkId');
@@ -51,12 +51,12 @@ export async function GET(request: Request) {
     console.error('Error fetching contracts:', error);
     return NextResponse.json({ 
       error: 'Failed to fetch contracts',
-      details: error.message 
+      details: error instanceof Error ? error.message : 'Unknown error'
     }, { status: 500 });
   }
 }
 
-async function handlePost(request: Request) {
+async function handlePost(request: NextRequest) {
   try {
     const body = await parseAndValidateJSON(request);
     const { title, type, parties, description, paymentTerms, deadline, specialClauses, generatedContent, clerkId } = body;
@@ -145,7 +145,7 @@ async function handlePost(request: Request) {
     
     return NextResponse.json({ 
       error: 'Failed to create contract',
-      details: error.message 
+      details: error instanceof Error ? error.message : 'Unknown error'
     }, { status: 500 });
   }
 }

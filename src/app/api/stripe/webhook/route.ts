@@ -4,6 +4,10 @@ import { prisma } from '@/lib/prisma';
 import Stripe from 'stripe';
 
 export async function POST(request: NextRequest) {
+  if (!stripe) {
+    return NextResponse.json({ error: 'Stripe not configured' }, { status: 500 });
+  }
+
   const body = await request.text();
   const signature = request.headers.get('stripe-signature');
 
@@ -165,9 +169,9 @@ async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
 }
 
 async function handlePaymentSucceeded(invoice: Stripe.Invoice) {
-  const subscriptionId = invoice.subscription as string;
+  const subscriptionId = (invoice as any).subscription;
   
-  if (!subscriptionId) return;
+  if (!subscriptionId || typeof subscriptionId !== 'string') return;
 
   const subscription = await stripe.subscriptions.retrieve(subscriptionId);
   const clerkId = subscription.metadata?.clerkId;
