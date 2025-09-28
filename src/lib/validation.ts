@@ -1,12 +1,12 @@
 import { NextRequest } from 'next/server';
 
-export interface ValidationError {
+export interface ValidationErrorItem {
   field: string;
   message: string;
 }
 
 export class ValidationError extends Error {
-  constructor(public errors: ValidationError[]) {
+  constructor(public errors: ValidationErrorItem[]) {
     super('Validation failed');
     this.name = 'ValidationError';
   }
@@ -44,7 +44,7 @@ export function validateMaxLength(value: string, maxLength: number, fieldName: s
 }
 
 export function validateContractData(data: any): void {
-  const errors: ValidationError[] = [];
+  const errors: ValidationErrorItem[] = [];
 
   // Validate required fields
   if (!data.type) {
@@ -90,7 +90,7 @@ export function validateContractData(data: any): void {
 }
 
 export function validateClientData(data: any): void {
-  const errors: ValidationError[] = [];
+  const errors: ValidationErrorItem[] = [];
 
   // Validate required fields
   if (!data.firstName) {
@@ -134,7 +134,7 @@ export function validateClientData(data: any): void {
 }
 
 export function validateNotificationData(data: any): void {
-  const errors: ValidationError[] = [];
+  const errors: ValidationErrorItem[] = [];
 
   if (!data.type) {
     errors.push({ field: 'type', message: 'Notification type is required' });
