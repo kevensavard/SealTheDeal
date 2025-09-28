@@ -13,7 +13,7 @@ interface Signer {
 interface EsignModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSend: (signers: Signer[], message: string) => void;
+  onSend: (signers: Signer[], message: string, password?: string) => void;
   contractTitle: string;
   contractParties?: Array<{
     name: string;
