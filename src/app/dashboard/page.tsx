@@ -247,8 +247,8 @@ export default function Dashboard() {
         // Calculate streak (consecutive days with contract creation)
         let streak = 0;
         const today = new Date();
-        const contractDates = contracts.map((c: any) => new Date(c.createdAt).toDateString());
-        const uniqueDates = [...new Set(contractDates)].sort().reverse();
+        const contractDates: string[] = contracts.map((c: any) => new Date(c.createdAt).toDateString());
+        const uniqueDates: string[] = [...new Set(contractDates)].sort().reverse();
         
         for (let i = 0; i < uniqueDates.length; i++) {
           const contractDate = new Date(uniqueDates[i]);
