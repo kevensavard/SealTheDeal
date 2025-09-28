@@ -219,14 +219,14 @@ function SupportOverview() {
             <EnvelopeIcon className="w-5 h-5 text-blue-400" />
             <div>
               <div className="text-sm font-medium text-white">Email</div>
-              <div className="text-xs text-slate-400">support@www.sealthedeal.app</div>
+              <div className="text-xs text-slate-400">support@mail.sealthedeal.app</div>
             </div>
           </div>
           <div className="flex items-center gap-3 p-3 bg-slate-700/50 rounded-lg">
             <GlobeAltIcon className="w-5 h-5 text-emerald-400" />
             <div>
               <div className="text-sm font-medium text-white">Website</div>
-              <div className="text-xs text-slate-400">www.sealthedeal.app/support</div>
+              <div className="text-xs text-slate-400">sealthedeal.app/support</div>
             </div>
           </div>
           <div className="flex items-center gap-3 p-3 bg-slate-700/50 rounded-lg">
@@ -886,7 +886,7 @@ function FAQSection() {
         </p>
         <div className="flex flex-col sm:flex-row gap-4">
           <a
-            href="mailto:support@www.sealthedeal.app"
+            href="mailto:support@mail.sealthedeal.app"
             className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
           >
             <EnvelopeIcon className="w-4 h-4" />

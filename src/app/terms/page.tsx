@@ -143,7 +143,7 @@ export default function TermsOfService() {
               </p>
               <div className="bg-slate-700 rounded-lg p-4">
                 <p className="text-slate-300">
-                  Email: legal@www.sealthedeal.app<br />
+                  Email: legal@mail.sealthedeal.app<br />
                   Address: [Your Business Address]<br />
                   Phone: [Your Phone Number]
                 </p>
