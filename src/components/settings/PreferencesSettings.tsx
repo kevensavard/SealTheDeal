@@ -68,7 +68,7 @@ export default function PreferencesSettings() {
     setLanguage(newLanguage as any);
     setPreferences(prev => ({
       ...prev,
-      language: newLanguage
+      language: newLanguage as any
     }));
   };
 
