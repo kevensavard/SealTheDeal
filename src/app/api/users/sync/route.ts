@@ -10,8 +10,8 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
-    // Check if user already exists in database
-    const existingUser = await prisma.user.findUnique({
+    // Check if user already exists in database by clerkId first
+    let existingUser = await prisma.user.findUnique({
       where: { clerkId: clerkId }
     });
 
@@ -23,7 +23,32 @@ export async function POST(request: Request) {
       });
     }
 
-    // Create user in database
+    // Check if user exists by email (for dev to prod migration)
+    existingUser = await prisma.user.findUnique({
+      where: { email: email }
+    });
+
+    if (existingUser) {
+      // Update the existing user with the new clerkId
+      const updatedUser = await prisma.user.update({
+        where: { id: existingUser.id },
+        data: {
+          clerkId: clerkId,
+          firstName: firstName || existingUser.firstName,
+          lastName: lastName || existingUser.lastName,
+        }
+      });
+
+      console.log('✅ User updated with new clerkId:', updatedUser.id, updatedUser.email);
+      
+      return NextResponse.json({ 
+        success: true, 
+        message: 'User updated with new clerkId',
+        user: updatedUser 
+      });
+    }
+
+    // Create new user in database
     const newUser = await prisma.user.create({
       data: {
         clerkId: clerkId,

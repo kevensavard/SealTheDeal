@@ -20,14 +20,34 @@ export async function getCurrentUser() {
       const clerkUserData = await currentUser();
       
       if (clerkUserData) {
-        user = await prisma.user.create({
-          data: {
-            clerkId: userId,
-            email: clerkUserData.emailAddresses[0]?.emailAddress || '',
-            firstName: clerkUserData.firstName || null,
-            lastName: clerkUserData.lastName || null,
-          }
+        const email = clerkUserData.emailAddresses[0]?.emailAddress || '';
+        
+        // Check if user exists by email (for dev to prod migration)
+        const existingUserByEmail = await prisma.user.findUnique({
+          where: { email: email }
         });
+
+        if (existingUserByEmail) {
+          // Update the existing user with the new clerkId
+          user = await prisma.user.update({
+            where: { id: existingUserByEmail.id },
+            data: {
+              clerkId: userId,
+              firstName: clerkUserData.firstName || existingUserByEmail.firstName,
+              lastName: clerkUserData.lastName || existingUserByEmail.lastName,
+            }
+          });
+        } else {
+          // Create new user
+          user = await prisma.user.create({
+            data: {
+              clerkId: userId,
+              email: email,
+              firstName: clerkUserData.firstName || null,
+              lastName: clerkUserData.lastName || null,
+            }
+          });
+        }
       }
     }
 
