@@ -16,7 +16,7 @@ import { es } from '@/lib/languages/es';
 // import { ar } from '@/lib/languages/ar';
 // import { hi } from '@/lib/languages/hi';
 
-type Language = 'en' | 'fr' | 'es' | 'de' | 'it' | 'pt' | 'zh' | 'ja' | 'ko' | 'ru' | 'ar' | 'hi';
+type Language = 'en' | 'fr' | 'es';
 
 const languages = {
   en,
