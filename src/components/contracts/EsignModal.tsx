@@ -177,7 +177,7 @@ export default function EsignModal({ isOpen, onClose, onSend, contractTitle, con
                         value={signer.email}
                         onChange={(e) => updateSigner(signer.id, 'email', e.target.value)}
                         className="w-full px-3 py-2 bg-slate-600 border border-slate-500 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                        placeholder="email@example.com"
+                        placeholder="signer@example.com"
                       />
                     </div>
 

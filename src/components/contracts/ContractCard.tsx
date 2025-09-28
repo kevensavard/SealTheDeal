@@ -17,6 +17,7 @@ import {
   PencilSquareIcon
 } from '@heroicons/react/24/outline';
 import EsignModal from './EsignModal';
+import SuccessModal from './SuccessModal';
 import { ContractStatus } from '@prisma/client';
 import { useLanguage } from '@/contexts/LanguageContext';
 
@@ -67,6 +68,8 @@ export default function ContractCard({ contract, onEdit, onDelete, onStatusChang
   const [recipientEmail, setRecipientEmail] = useState('');
   const [emailMessage, setEmailMessage] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [successModalData, setSuccessModalData] = useState({ title: '', message: '', type: 'success' as 'success' | 'error' | 'warning' });
 
   // Calculate signature progress
   const getSignatureProgress = () => {
@@ -253,15 +256,30 @@ export default function ContractCard({ contract, onEdit, onDelete, onStatusChang
 
       if (successful.length > 0) {
         setShowEsignModal(false);
-        alert(`E-signature requests sent to ${successful.length} signer(s)!`);
+        setSuccessModalData({
+          title: 'E-signature Requests Sent!',
+          message: `Successfully sent e-signature requests to ${successful.length} signer(s). They will receive an email with a link to sign the contract.`,
+          type: 'success'
+        });
+        setShowSuccessModal(true);
       }
       
       if (failed.length > 0) {
-        alert(`Failed to send to ${failed.length} signer(s): ${failed.map(f => f.signer.name).join(', ')}`);
+        setSuccessModalData({
+          title: 'Some Requests Failed',
+          message: `Failed to send to ${failed.length} signer(s): ${failed.map(f => f.signer.name).join(', ')}. Please check the email addresses and try again.`,
+          type: 'error'
+        });
+        setShowSuccessModal(true);
       }
     } catch (error) {
       console.error('Error sending e-signature:', error);
-      alert('Failed to send e-signature request');
+      setSuccessModalData({
+        title: 'Request Failed',
+        message: 'Failed to send e-signature request. Please try again or contact support if the problem persists.',
+        type: 'error'
+      });
+      setShowSuccessModal(true);
     } finally {
       setLoading(false);
     }
@@ -555,6 +573,15 @@ export default function ContractCard({ contract, onEdit, onDelete, onStatusChang
           lastName: contract.client.lastName,
           email: '' // Client doesn't have email in our schema
         } : undefined}
+      />
+
+      {/* Success Modal */}
+      <SuccessModal
+        isOpen={showSuccessModal}
+        onClose={() => setShowSuccessModal(false)}
+        title={successModalData.title}
+        message={successModalData.message}
+        type={successModalData.type}
       />
     </div>
   );
