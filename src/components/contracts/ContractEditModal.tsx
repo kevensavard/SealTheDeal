@@ -88,7 +88,7 @@ export default function ContractEditModal({ contract, isOpen, onClose, onSave }:
             </div>
             <div>
               <h2 className="text-xl font-bold text-white">{t.edit} Contract</h2>
-              <p className="text-slate-400 text-sm">{t.contractId}: {contract.id}</p>
+              <p className="text-slate-400 text-sm">Contract ID: {contract.id}</p>
             </div>
           </div>
           <button
