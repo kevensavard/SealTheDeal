@@ -20,7 +20,7 @@ export default function SubscriptionBilling({ user }: SubscriptionBillingProps) 
     plan: 'Free',
     status: 'active',
     contractsUsed: 0,
-    contractsLimit: 1,
+    contractsLimit: 1 as number | string,
     nextBillingDate: null,
     price: 0
   });
