@@ -188,7 +188,6 @@ export const en = {
   filter: 'Filter',
   all: 'All',
   contracts: 'Contracts',
-  clients: 'Clients',
   list: 'List',
   timeline: 'Timeline',
   notificationsCount: 'notifications',
