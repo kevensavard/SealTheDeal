@@ -65,7 +65,9 @@ export async function createContractNotification(
     CONTRACT_EXPIRED: `Contract "${contractTitle}" has expired`,
     CONTRACT_EXPIRING_SOON: `Contract "${contractTitle}" is expiring soon`,
     CONTRACT_CANCELLED: `Contract "${contractTitle}" has been cancelled`,
-    SIGNATURE_REMINDER: `Reminder: Contract "${contractTitle}" is waiting for signature${clientName ? ` from ${clientName}` : ''}`
+    CLIENT_ADDED: `New client "${clientName}" has been added to your contacts`,
+    SIGNATURE_REMINDER: `Reminder: Contract "${contractTitle}" is waiting for signature${clientName ? ` from ${clientName}` : ''}`,
+    SYSTEM_ALERT: `System alert for contract "${contractTitle}"`
   };
 
   const titles = {
@@ -75,7 +77,9 @@ export async function createContractNotification(
     CONTRACT_EXPIRED: 'Contract Expired',
     CONTRACT_EXPIRING_SOON: 'Contract Expiring Soon',
     CONTRACT_CANCELLED: 'Contract Cancelled',
-    SIGNATURE_REMINDER: 'Signature Reminder'
+    CLIENT_ADDED: 'New Client Added',
+    SIGNATURE_REMINDER: 'Signature Reminder',
+    SYSTEM_ALERT: 'System Alert'
   };
 
   return createNotification({
