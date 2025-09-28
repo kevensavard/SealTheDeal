@@ -87,7 +87,7 @@ export default function ContractEditModal({ contract, isOpen, onClose, onSave }:
               <DocumentTextIcon className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-white">{t.editContract}</h2>
+              <h2 className="text-xl font-bold text-white">{t.edit} Contract</h2>
               <p className="text-slate-400 text-sm">{t.contractId}: {contract.id}</p>
             </div>
           </div>
