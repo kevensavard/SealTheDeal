@@ -43,7 +43,6 @@ export const es = {
   prioritySupport: 'Soporte prioritario',
   contractTemplates: 'Plantillas de contratos',
   upgradeToPro: 'Actualizar a Pro',
-  manageSubscription: 'Gestionar Suscripción',
   usageThisMonth: 'Uso este mes',
   contractsGenerated: 'contratos generados',
   contractsRemaining: 'contratos restantes',
