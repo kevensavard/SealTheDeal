@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useAuth, useUser } from '@clerk/nextjs';
 import { useRouter, useSearchParams } from 'next/navigation';
 import DashboardLayout from '@/components/DashboardLayout';
@@ -44,7 +44,7 @@ interface ContractData {
   leaseAmount?: string;
 }
 
-export default function CreateContract() {
+function CreateContractContent() {
   const { isSignedIn, isLoaded } = useAuth();
   const { user } = useUser();
   const router = useRouter();
@@ -377,5 +377,20 @@ export default function CreateContract() {
         </div>
       </main>
     </DashboardLayout>
+  );
+}
+
+export default function CreateContract() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-slate-900 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
+          <p className="text-slate-300">Loading...</p>
+        </div>
+      </div>
+    }>
+      <CreateContractContent />
+    </Suspense>
   );
 }
