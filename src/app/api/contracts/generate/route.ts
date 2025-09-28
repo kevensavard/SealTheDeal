@@ -381,7 +381,7 @@ ${deadline ? `This contract shall be completed by ${new Date(deadline).toLocaleD
 ## Special Clauses
 
 ${specialClauses.length > 0 
-  ? specialClauses.map(clause => `• ${clause}`).join('\n')
+  ? specialClauses.map((clause: string) => `• ${clause}`).join('\n')
   : 'Standard terms and conditions apply.'
 }
 

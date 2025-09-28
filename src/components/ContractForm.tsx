@@ -516,7 +516,7 @@ export default function ContractForm({ data, onChange }: ContractFormProps) {
           <div className="mt-3">
             <p className="text-sm text-slate-400 mb-2">Selected clauses:</p>
             <div className="flex flex-wrap gap-2">
-              {data.specialClauses.map(clause => (
+              {data.specialClauses.map((clause: string) => (
                 <span
                   key={clause}
                   className="inline-flex items-center gap-1 px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-sm"

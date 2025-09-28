@@ -17,11 +17,11 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
       where: { clerkId: userId }
     });
 
-    if (!user || user.id !== params.id) {
+    if (!user || user.id !== id) {
       return NextResponse.json({ error: 'Access denied' }, { status: 403 });
     }
 
-    const userData = await DataExport.exportUserData(params.id);
+    const userData = await DataExport.exportUserData(id);
 
     return NextResponse.json({ 
       success: true, 

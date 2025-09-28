@@ -32,7 +32,7 @@ export async function GET(
     // Get client
     const client = await prisma.client.findFirst({
       where: {
-        id: params.id,
+        id: id,
         userId: user.id
       },
       include: {
@@ -101,7 +101,7 @@ export async function PUT(
     // Check if client exists and belongs to user
     const existingClient = await prisma.client.findFirst({
       where: {
-        id: params.id,
+        id: id,
         userId: user.id
       }
     });
@@ -119,7 +119,7 @@ export async function PUT(
         where: {
           userId: user.id,
           email: email,
-          id: { not: params.id }
+          id: { not: id }
         }
       });
 
@@ -133,7 +133,7 @@ export async function PUT(
 
     // Update client
     const client = await prisma.client.update({
-      where: { id: params.id },
+      where: { id: id },
       data: {
         firstName,
         lastName,
@@ -190,7 +190,7 @@ export async function DELETE(
     // Check if client exists and belongs to user
     const existingClient = await prisma.client.findFirst({
       where: {
-        id: params.id,
+        id: id,
         userId: user.id
       }
     });
@@ -204,7 +204,7 @@ export async function DELETE(
 
     // Delete client (contracts will be unlinked due to onDelete: SetNull)
     await prisma.client.delete({
-      where: { id: params.id }
+      where: { id: id }
     });
 
     return NextResponse.json({

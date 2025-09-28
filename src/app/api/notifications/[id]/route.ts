@@ -32,7 +32,7 @@ export async function PATCH(
     // Update notification
     const notification = await prisma.notification.updateMany({
       where: {
-        id: params.id,
+        id: id,
         userId: user.id
       },
       data: {
@@ -92,7 +92,7 @@ export async function DELETE(
     // Delete notification
     const notification = await prisma.notification.deleteMany({
       where: {
-        id: params.id,
+        id: id,
         userId: user.id
       }
     });

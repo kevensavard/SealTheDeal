@@ -23,7 +23,7 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
 
     const contract = await prisma.contract.findFirst({
       where: {
-        id: params.id,
+        id: id,
         userId: dbUser.id,
       },
       include: {

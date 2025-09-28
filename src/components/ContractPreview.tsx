@@ -240,7 +240,7 @@ ${data.paymentTerms || 'Payment terms to be specified'}
 ## 5. SPECIAL PROVISIONS
 
 ${data.specialClauses.length > 0
-  ? data.specialClauses.map(clause => `• ${clause}`).join('\n')
+  ? data.specialClauses.map((clause: string) => `• ${clause}`).join('\n')
   : 'Standard terms apply'
 }
 
