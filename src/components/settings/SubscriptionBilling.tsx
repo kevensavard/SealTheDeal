@@ -158,7 +158,11 @@ export default function SubscriptionBilling({ user }: SubscriptionBillingProps) 
           <div className="w-full bg-slate-700 rounded-full h-2">
             <div 
               className="bg-gradient-to-r from-blue-500 to-emerald-500 h-2 rounded-full transition-all duration-300"
-              style={{ width: `${Math.min((subscriptionData.contractsUsed / subscriptionData.contractsLimit) * 100, 100)}%` }}
+              style={{ 
+                width: typeof subscriptionData.contractsLimit === 'number' 
+                  ? `${Math.min((subscriptionData.contractsUsed / subscriptionData.contractsLimit) * 100, 100)}%`
+                  : '100%'
+              }}
             />
           </div>
         </div>
