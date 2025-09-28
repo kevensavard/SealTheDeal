@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { currentUser } from '@clerk/nextjs/server';
 import { prisma } from '@/lib/prisma';
 import { withRateLimit } from '@/lib/rateLimit';
+import { sendContractForSignature } from '@/lib/email';
 
 async function handlePost(request: Request) {
   const user = await currentUser();
@@ -74,21 +75,33 @@ async function handlePost(request: Request) {
           }
         });
     
-    // In a real application, you would:
-    // 1. Integrate with an e-signature service like DocuSign, HelloSign, etc.
-    // 2. Send the signing link via email
+    // Generate the signing URL
+    const signingUrl = `${process.env.NEXT_PUBLIC_APP_URL || 'https://sealthedeal.app'}/sign/${signingToken}`;
     
-    // For now, we'll simulate the e-signature process
-    const signingUrl = `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/sign/${signingToken}`;
+    // Send email with signing link
+    const emailSent = await sendContractForSignature({
+      contractTitle: contract.title,
+      contractId: contract.id,
+      signerName: recipientName,
+      signerEmail: recipientEmail,
+      contractUrl: signingUrl,
+      message: message,
+      password: password,
+      senderName: `${user.firstName || ''} ${user.lastName || ''}`.trim() || 'Contract Sender',
+      senderEmail: user.emailAddresses[0]?.emailAddress || 'noreply@sealthedeal.app',
+    });
+
+    if (!emailSent) {
+      console.error('Failed to send email for contract signature');
+      return NextResponse.json({ error: 'Failed to send email' }, { status: 500 });
+    }
     
-    console.log('E-signature request:', {
+    console.log('E-signature request sent:', {
       contractId: contract.id,
       contractTitle: contract.title,
       recipientEmail,
       recipientName,
-      recipientRole,
       signingUrl,
-      message: message || `Please review and sign the contract: ${contract.title}`,
     });
 
     // Update contract status to SENT if not already

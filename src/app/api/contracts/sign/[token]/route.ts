@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getLocationFromIP } from '@/lib/geolocation';
+import { sendFinalSignedContract } from '@/lib/email';
 
 async function sendFinalContractToAllParties(contractId: string, request: Request) {
   try {
@@ -47,43 +48,21 @@ async function sendFinalContractToAllParties(contractId: string, request: Reques
           pdfUrl: pdfUrl
         });
 
-        // For now, we'll just log the email details
-        // In production, replace this with actual email sending
-        const emailContent = {
-          to: signer.signerEmail,
-          subject: `Final Signed Contract: ${contract.title}`,
-          html: `
-            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-              <h2 style="color: #333;">Contract Fully Executed!</h2>
-              <p>Dear ${signer.signerName},</p>
-              <p>Great news! The contract "<strong>${contract.title}</strong>" has been fully executed with all required signatures.</p>
-              
-              <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
-                <h3 style="margin-top: 0;">Contract Details:</h3>
-                <p><strong>Title:</strong> ${contract.title}</p>
-                <p><strong>Status:</strong> Fully Signed</p>
-                <p><strong>Completed:</strong> ${new Date().toLocaleDateString()}</p>
-              </div>
+        // Send final signed contract email
+        const emailSent = await sendFinalSignedContract({
+          contractTitle: contract.title,
+          contractId: contract.id,
+          recipientName: signer.signerName,
+          recipientEmail: signer.signerEmail,
+          signedPdfUrl: pdfUrl,
+          senderName: `${contract.user.firstName || ''} ${contract.user.lastName || ''}`.trim() || 'Contract Owner',
+          senderEmail: 'noreply@sealthedeal.app', // You might want to get this from the contract owner
+        });
 
-              <p>You can download the final signed contract using the link below:</p>
-              <a href="${pdfUrl}" style="display: inline-block; background: #007bff; color: white; padding: 12px 24px; text-decoration: none; border-radius: 5px; margin: 20px 0;">
-                Download Final Contract (PDF)
-              </a>
-
-              <p style="color: #666; font-size: 14px; margin-top: 30px;">
-                This contract is now legally binding and has been executed by all parties.
-              </p>
-
-              <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;">
-              <p style="color: #999; font-size: 12px;">
-                This email was sent automatically by SealTheDeal. Please keep this contract for your records.
-              </p>
-            </div>
-          `
-        };
-
-        // TODO: Replace with actual email service integration
-        // await sendEmail(emailContent);
+        if (!emailSent) {
+          console.error('Failed to send final contract email to', signer.signerEmail);
+          return { success: false, email: signer.signerEmail, error: 'Email sending failed' };
+        }
         
         return { success: true, email: signer.signerEmail };
       } catch (error) {
