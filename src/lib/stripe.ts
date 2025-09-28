@@ -19,8 +19,8 @@ export const STRIPE_CONFIG = {
   WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET || '',
   
   // Success and cancel URLs
-  SUCCESS_URL: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/settings?tab=subscription&success=true`,
-  CANCEL_URL: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/settings?tab=subscription&canceled=true`,
+  SUCCESS_URL: `${process.env.NEXT_PUBLIC_APP_URL || 'https://sealthedeal.app'}/settings?tab=subscription&success=true`,
+  CANCEL_URL: `${process.env.NEXT_PUBLIC_APP_URL || 'https://sealthedeal.app'}/settings?tab=subscription&canceled=true`,
 };
 
 export const formatPrice = (amount: number, currency: string = 'usd') => {
