@@ -180,7 +180,16 @@ export default function Dashboard() {
         const data = await response.json();
         const contracts = data.contracts || [];
         
-        const items = [];
+        const items: Array<{
+          id: string;
+          type: string;
+          title: string;
+          description: string;
+          contractId: string;
+          priority: string;
+          icon: any;
+          color: string;
+        }> = [];
         
         // Find contracts pending signature
         const pendingContracts = contracts.filter((c: any) => c.status === 'SENT');
