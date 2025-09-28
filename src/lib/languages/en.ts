@@ -187,7 +187,6 @@ export const en = {
   signed: 'Signed',
   filter: 'Filter',
   all: 'All',
-  unread: 'Unread',
   contracts: 'Contracts',
   clients: 'Clients',
   list: 'List',
