@@ -225,7 +225,7 @@ export class BackupService {
       return backupFilePath;
     } catch (error) {
       console.error('❌ User backup failed:', error);
-      throw new Error(`User backup creation failed: ${error.message}`);
+      throw new Error(`User backup creation failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
   }
 
