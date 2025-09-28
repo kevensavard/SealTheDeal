@@ -190,9 +190,11 @@ async function handlePaymentSucceeded(invoice: Stripe.Invoice) {
 }
 
 async function handlePaymentFailed(invoice: Stripe.Invoice) {
-  const subscriptionId = invoice.subscription as string;
+  if (!stripe) return;
   
-  if (!subscriptionId) return;
+  const subscriptionId = (invoice as any).subscription;
+  
+  if (!subscriptionId || typeof subscriptionId !== 'string') return;
 
   const subscription = await stripe.subscriptions.retrieve(subscriptionId);
   const clerkId = subscription.metadata?.clerkId;
