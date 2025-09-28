@@ -303,7 +303,7 @@ export class BackupService {
     } catch (error) {
       return {
         valid: false,
-        errors: [`Failed to read backup file: ${error.message}`]
+        errors: [`Failed to read backup file: ${error instanceof Error ? error.message : 'Unknown error'}`]
       };
     }
   }
