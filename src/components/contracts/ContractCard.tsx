@@ -550,7 +550,11 @@ export default function ContractCard({ contract, onEdit, onDelete, onStatusChang
         onSend={handleSendEsign}
         contractTitle={contract.title}
         contractParties={contract.parties as any}
-        existingClient={contract.client}
+        existingClient={contract.client ? {
+          firstName: contract.client.firstName,
+          lastName: contract.client.lastName,
+          email: '' // Client doesn't have email in our schema
+        } : undefined}
       />
     </div>
   );
