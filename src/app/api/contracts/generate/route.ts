@@ -278,7 +278,7 @@ ${type === 'Partnership' ? `
 Make this contract comprehensive, professional, and legally robust. Use formal legal language while maintaining clarity. Include specific details, dates, amounts, and procedures. This should be a contract that could actually be used in a real business transaction.`;
 
     const completion = await openai.chat.completions.create({
-      model: "gpt-5-mini", // ⚡ Fast, cost-efficient GPT-5 variant
+      model: "gpt-4o", // ⚡ Fast, latest GPT-4 variant
       messages: [
         {
           role: "system",
@@ -289,7 +289,7 @@ Make this contract comprehensive, professional, and legally robust. Use formal l
           content: prompt
         }
       ],
-      max_tokens: 6000, // Keep the same - GPT-5 mini can handle it
+      max_tokens: 4000, // Reduced for faster generation
       temperature: 0.2, // Lower temperature for more consistent, professional output
     });
 
@@ -303,7 +303,7 @@ Make this contract comprehensive, professional, and legally robust. Use formal l
     let generatedTitle = title;
     if (!title || title.trim() === '') {
       const titleCompletion = await openai.chat.completions.create({
-        model: "gpt-4",
+        model: "gpt-4o", // Use same model for consistency
         messages: [
           {
             role: "system",
