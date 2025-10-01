@@ -289,7 +289,7 @@ Make this contract comprehensive, professional, and legally robust. Use formal l
           content: prompt
         }
       ],
-      max_tokens: 4000, // Reduced for faster generation
+      max_completion_tokens: 4000, // GPT-5 uses max_completion_tokens instead of max_tokens
       reasoning_effort: "minimal", // ⚡ Fastest possible time-to-first-token
       verbosity: "low", // ⚡ Concise but comprehensive output
     });
@@ -315,7 +315,7 @@ Make this contract comprehensive, professional, and legally robust. Use formal l
             content: `Based on this contract content, generate a professional title:\n\nContract Type: ${type}\nDescription: ${description}\nParties: ${parties?.join(', ') || 'Not specified'}\n\nContract Content:\n${contractContent.substring(0, 500)}...`
           }
         ],
-        max_tokens: 50,
+        max_completion_tokens: 50, // GPT-5 uses max_completion_tokens instead of max_tokens
         reasoning_effort: "minimal", // ⚡ Fastest title generation
         verbosity: "low", // ⚡ Concise output
       });
