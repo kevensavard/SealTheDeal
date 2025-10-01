@@ -278,7 +278,7 @@ ${type === 'Partnership' ? `
 Make this contract comprehensive, professional, and legally robust. Use formal legal language while maintaining clarity. Include specific details, dates, amounts, and procedures. This should be a contract that could actually be used in a real business transaction.`;
 
     const completion = await openai.chat.completions.create({
-      model: "gpt-5-mini", // ⚡ Cost-optimized, balances speed/cost/capability
+      model: "gpt-4o", // Fast and reliable model for production
       messages: [
         {
           role: "system",
@@ -289,9 +289,8 @@ Make this contract comprehensive, professional, and legally robust. Use formal l
           content: prompt
         }
       ],
-      max_completion_tokens: 4000, // GPT-5 uses max_completion_tokens instead of max_tokens
-      reasoning_effort: "minimal", // ⚡ Fastest possible time-to-first-token
-      verbosity: "low", // ⚡ Concise but comprehensive output
+      max_tokens: 4000, // Standard max_tokens for gpt-4o
+      temperature: 0.7, // Balanced creativity and consistency
     });
 
     const contractContent = completion.choices[0]?.message?.content || '';
@@ -304,7 +303,7 @@ Make this contract comprehensive, professional, and legally robust. Use formal l
     let generatedTitle = title;
     if (!title || title.trim() === '') {
       const titleCompletion = await openai.chat.completions.create({
-        model: "gpt-5-mini", // Use same model for consistency
+        model: "gpt-4o", // Use same fast model for consistency
         messages: [
           {
             role: "system",
@@ -315,9 +314,8 @@ Make this contract comprehensive, professional, and legally robust. Use formal l
             content: `Based on this contract content, generate a professional title:\n\nContract Type: ${type}\nDescription: ${description}\nParties: ${parties?.join(', ') || 'Not specified'}\n\nContract Content:\n${contractContent.substring(0, 500)}...`
           }
         ],
-        max_completion_tokens: 50, // GPT-5 uses max_completion_tokens instead of max_tokens
-        reasoning_effort: "minimal", // ⚡ Fastest title generation
-        verbosity: "low", // ⚡ Concise output
+        max_tokens: 50, // Standard max_tokens for gpt-4o
+        temperature: 0.7, // Balanced creativity and consistency
       });
 
       generatedTitle = titleCompletion.choices[0]?.message?.content?.trim() || 'Contract Agreement';
