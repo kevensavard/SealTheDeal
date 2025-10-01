@@ -40,7 +40,11 @@ export interface FinalContractEmailData {
 
 export async function sendEmail(options: EmailOptions): Promise<boolean> {
   if (!mg || !process.env.MAILGUN_DOMAIN) {
-    console.error('Mailgun not configured');
+    console.error('❌ Mailgun not configured:', {
+      mg: !!mg,
+      domain: process.env.MAILGUN_DOMAIN,
+      apiKey: process.env.MAILGUN_API_KEY ? 'Set' : 'Missing'
+    });
     return false;
   }
 
@@ -51,13 +55,27 @@ export async function sendEmail(options: EmailOptions): Promise<boolean> {
       subject: options.subject,
       text: options.text,
       html: options.html,
+      'h:Reply-To': 'support@mail.sealthedeal.app',
+      'h:X-Mailgun-Track': 'yes',
+      'h:X-Mailgun-Track-Clicks': 'yes',
+      'h:X-Mailgun-Track-Opens': 'yes',
     };
 
-    await mg.messages.create(process.env.MAILGUN_DOMAIN, msg);
-    console.log('✅ Email sent successfully to:', options.to);
+    const result = await mg.messages.create(process.env.MAILGUN_DOMAIN, msg);
+    console.log('✅ Email sent successfully:', {
+      to: options.to,
+      messageId: result.id,
+      subject: options.subject
+    });
     return true;
   } catch (error) {
-    console.error('❌ Error sending email:', error);
+    console.error('❌ Error sending email:', {
+      error: error instanceof Error ? error.message : 'Unknown error',
+      details: error,
+      to: options.to,
+      subject: options.subject,
+      domain: process.env.MAILGUN_DOMAIN
+    });
     return false;
   }
 }

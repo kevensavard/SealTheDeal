@@ -92,8 +92,18 @@ async function handlePost(request: Request) {
     });
 
     if (!emailSent) {
-      console.error('Failed to send email for contract signature');
-      return NextResponse.json({ error: 'Failed to send email' }, { status: 500 });
+      console.error('❌ Failed to send email for contract signature:', {
+        contractId: contract.id,
+        recipientEmail,
+        recipientName,
+        signingUrl,
+        mailgunDomain: process.env.MAILGUN_DOMAIN,
+        mailgunConfigured: !!process.env.MAILGUN_API_KEY
+      });
+      return NextResponse.json({ 
+        error: 'Failed to send email',
+        details: 'Email service is currently unavailable. Please try again later or contact support.'
+      }, { status: 500 });
     }
     
     console.log('E-signature request sent:', {
