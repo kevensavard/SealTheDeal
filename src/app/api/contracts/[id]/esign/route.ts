@@ -76,7 +76,7 @@ async function handlePost(request: Request) {
         });
     
     // Generate the signing URL
-    const signingUrl = `https://www.sealthedeal.app/sign/${signingToken}`;
+    const signingUrl = `https://sealthedeal.app/sign/${signingToken}`;
     
     // Send email with signing link
     const emailSent = await sendContractForSignature({

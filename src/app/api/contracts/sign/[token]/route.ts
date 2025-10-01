@@ -32,7 +32,7 @@ async function sendFinalContractToAllParties(contractId: string, request: Reques
     }
 
     // Get the base URL for the PDF endpoint
-    const baseUrl = 'https://www.sealthedeal.app';
+    const baseUrl = 'https://sealthedeal.app';
     const pdfUrl = `${baseUrl}/api/contracts/${contractId}/pdf`;
 
     // Send to all signers
