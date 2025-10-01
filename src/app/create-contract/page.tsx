@@ -103,10 +103,30 @@ function CreateContractContent() {
   }, [searchParams]);
 
   const handleFormChange = (field: keyof ContractData, value: any) => {
-    setContractData(prev => ({
-      ...prev,
-      [field]: value
-    }));
+    setContractData(prev => {
+      const newData = {
+        ...prev,
+        [field]: value
+      };
+
+      // Handle contract type changes for single-party contracts
+      if (field === 'type') {
+        const singlePartyTypes = ['NDA', 'Non-Disclosure Agreement', 'Confidentiality Agreement', 'Privacy Policy', 'Terms of Service', 'Disclaimer', 'Waiver'];
+        const isSinglePartyType = singlePartyTypes.some(type => 
+          value.toLowerCase().includes(type.toLowerCase())
+        );
+
+        if (isSinglePartyType && prev.parties.length > 1) {
+          // Keep only the first party for single-party contracts
+          newData.parties = [prev.parties[0] || ''];
+        } else if (!isSinglePartyType && prev.parties.length < 2) {
+          // Ensure at least 2 parties for multi-party contracts
+          newData.parties = prev.parties.length === 0 ? ['', ''] : [...prev.parties, ''];
+        }
+      }
+
+      return newData;
+    });
   };
 
   const generateContract = async () => {

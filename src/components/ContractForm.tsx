@@ -48,6 +48,12 @@ interface ContractFormProps {
 const contractTypes = [
   'Freelance',
   'NDA',
+  'Non-Disclosure Agreement',
+  'Confidentiality Agreement',
+  'Privacy Policy',
+  'Terms of Service',
+  'Disclaimer',
+  'Waiver',
   'Service Agreement',
   'Consulting',
   'Employment',
@@ -131,34 +137,47 @@ export default function ContractForm({ data, onChange }: ContractFormProps) {
           Parties Involved *
         </label>
         <div className="space-y-3">
-          {data.parties.map((party, index) => (
-            <div key={index} className="flex items-center gap-3">
-              <input
-                type="text"
-                value={party}
-                onChange={(e) => {
-                  const newParties = [...data.parties];
-                  newParties[index] = e.target.value;
-                  onChange('parties', newParties);
-                }}
-                placeholder={`Party ${index + 1} (e.g., John Doe - Client)`}
-                className="flex-1 px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-              />
-              {data.parties.length > 2 && (
-                <button
-                  type="button"
-                  onClick={() => {
-                    const newParties = data.parties.filter((_, i) => i !== index);
+          {data.parties.map((party, index) => {
+            // Define contract types that allow single party
+            const singlePartyTypes = ['NDA', 'Non-Disclosure Agreement', 'Confidentiality Agreement', 'Privacy Policy', 'Terms of Service', 'Disclaimer', 'Waiver'];
+            const isSinglePartyType = singlePartyTypes.some(type => 
+              data.type.toLowerCase().includes(type.toLowerCase())
+            );
+            const minParties = isSinglePartyType ? 1 : 2;
+            const canRemove = data.parties.length > minParties;
+            
+            return (
+              <div key={index} className="flex items-center gap-3">
+                <input
+                  type="text"
+                  value={party}
+                  onChange={(e) => {
+                    const newParties = [...data.parties];
+                    newParties[index] = e.target.value;
                     onChange('parties', newParties);
                   }}
-                  className="p-2 text-red-400 hover:text-red-300 transition-colors"
-                  title="Remove party"
-                >
-                  <XMarkIcon className="w-5 h-5" />
-                </button>
-              )}
-            </div>
-          ))}
+                  placeholder={isSinglePartyType && index === 0 
+                    ? "Party name (e.g., John Doe)" 
+                    : `Party ${index + 1} (e.g., John Doe - Client)`
+                  }
+                  className="flex-1 px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                />
+                {canRemove && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const newParties = data.parties.filter((_, i) => i !== index);
+                      onChange('parties', newParties);
+                    }}
+                    className="p-2 text-red-400 hover:text-red-300 transition-colors"
+                    title="Remove party"
+                  >
+                    <XMarkIcon className="w-5 h-5" />
+                  </button>
+                )}
+              </div>
+            );
+          })}
           <button
             type="button"
             onClick={() => onChange('parties', [...data.parties, ''])}
@@ -168,7 +187,17 @@ export default function ContractForm({ data, onChange }: ContractFormProps) {
             Add another party
           </button>
         </div>
-        <p className="text-xs text-slate-400 mt-1">Include role/relationship (e.g., "John Doe - Client", "Jane Smith - Freelancer")</p>
+        <p className="text-xs text-slate-400 mt-1">
+          {(() => {
+            const singlePartyTypes = ['NDA', 'Non-Disclosure Agreement', 'Confidentiality Agreement', 'Privacy Policy', 'Terms of Service', 'Disclaimer', 'Waiver'];
+            const isSinglePartyType = singlePartyTypes.some(type => 
+              data.type.toLowerCase().includes(type.toLowerCase())
+            );
+            return isSinglePartyType 
+              ? "For single-party contracts like NDAs, just enter the party name"
+              : "Include role/relationship (e.g., \"John Doe - Client\", \"Jane Smith - Freelancer\")";
+          })()}
+        </p>
       </div>
 
       {/* Description */}

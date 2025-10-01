@@ -66,6 +66,12 @@ Equipment Details:
 Important: Include equipment condition, maintenance responsibilities, and return conditions.`;
     }
 
+    // Check if this is a single-party contract
+    const singlePartyTypes = ['NDA', 'Non-Disclosure Agreement', 'Confidentiality Agreement', 'Privacy Policy', 'Terms of Service', 'Disclaimer', 'Waiver'];
+    const isSinglePartyType = singlePartyTypes.some(singleType => 
+      type.toLowerCase().includes(singleType.toLowerCase())
+    );
+
     const prompt = `Generate a comprehensive, professional, legally-sound ${type.toLowerCase()} contract that reads like a real legal document. This should be detailed, thorough, and include all necessary legal protections and clauses.
 
 Contract Details:
@@ -77,6 +83,8 @@ Contract Details:
 - Special Clauses: ${specialClauses.length > 0 ? specialClauses.join(', ') : 'Standard terms apply'}
 - Date: ${currentDate}
 ${specificDetails}
+
+${isSinglePartyType ? 'IMPORTANT: This is a single-party contract. Structure it appropriately for one party (e.g., NDA, Privacy Policy, Terms of Service).' : ''}
 
 Generate a comprehensive contract that includes ALL of the following sections in detail:
 

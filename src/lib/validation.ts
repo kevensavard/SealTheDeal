@@ -55,8 +55,21 @@ export function validateContractData(data: any): void {
     errors.push({ field: 'description', message: 'Contract description is required' });
   }
 
-  if (!data.parties || !Array.isArray(data.parties) || data.parties.length < 2) {
-    errors.push({ field: 'parties', message: 'At least two parties are required' });
+  // Define contract types that allow single party
+  const singlePartyTypes = ['NDA', 'Non-Disclosure Agreement', 'Confidentiality Agreement', 'Privacy Policy', 'Terms of Service', 'Disclaimer', 'Waiver'];
+  
+  // Check if this is a single-party contract type
+  const isSinglePartyType = singlePartyTypes.some(type => 
+    data.type.toLowerCase().includes(type.toLowerCase())
+  );
+
+  const minParties = isSinglePartyType ? 1 : 2;
+  const errorMessage = isSinglePartyType 
+    ? 'At least one party is required' 
+    : 'At least two parties are required';
+
+  if (!data.parties || !Array.isArray(data.parties) || data.parties.length < minParties) {
+    errors.push({ field: 'parties', message: errorMessage });
   }
 
   // Validate parties array

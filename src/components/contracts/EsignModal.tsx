@@ -74,7 +74,13 @@ export default function EsignModal({ isOpen, onClose, onSend, contractTitle, con
   };
 
   const removeSigner = (id: string) => {
-    if (signers.length > 1) {
+    // Allow removal if more than 1 signer, or if it's a single-party contract
+    const singlePartyTypes = ['NDA', 'Non-Disclosure Agreement', 'Confidentiality Agreement', 'Privacy Policy', 'Terms of Service', 'Disclaimer', 'Waiver'];
+    const isSinglePartyType = singlePartyTypes.some(type => 
+      contractTitle.toLowerCase().includes(type.toLowerCase())
+    );
+    
+    if (signers.length > 1 || isSinglePartyType) {
       setSigners(signers.filter(signer => signer.id !== id));
     }
   };
@@ -91,8 +97,18 @@ export default function EsignModal({ isOpen, onClose, onSend, contractTitle, con
       signer.name.trim() && signer.email.trim()
     );
 
-    if (validSigners.length === 0) {
-      alert('Please add at least one signer with name and email');
+    // Check if this is a single-party contract
+    const singlePartyTypes = ['NDA', 'Non-Disclosure Agreement', 'Confidentiality Agreement', 'Privacy Policy', 'Terms of Service', 'Disclaimer', 'Waiver'];
+    const isSinglePartyType = singlePartyTypes.some(type => 
+      contractTitle.toLowerCase().includes(type.toLowerCase())
+    );
+
+    const minSigners = isSinglePartyType ? 1 : 2;
+    if (validSigners.length < minSigners) {
+      const message = isSinglePartyType 
+        ? 'Please add at least one signer with name and email'
+        : 'Please add at least two signers with name and email';
+      alert(message);
       return;
     }
 
