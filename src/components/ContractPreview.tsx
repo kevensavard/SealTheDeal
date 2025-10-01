@@ -409,7 +409,35 @@ ${data.parties.filter(p => p.trim()).map((_, index) =>
                 <div className="animate-scaleIn">
                   <button
                     onClick={handleGenerate}
-                    disabled={!data.description || data.parties.filter(p => p.trim()).length < 2}
+                    disabled={(() => {
+                      // Check if this is a single-party contract
+                      const singlePartyTypes = [
+                        'NDA', 
+                        'Non-Disclosure Agreement', 
+                        'Confidentiality Agreement', 
+                        'Privacy Policy', 
+                        'Terms of Service', 
+                        'Disclaimer', 
+                        'Waiver',
+                        'Liability Waiver',
+                        'Release Form',
+                        'Consent Form',
+                        'Authorization Form',
+                        'Code of Conduct',
+                        'Acceptable Use Policy',
+                        'Data Processing Agreement',
+                        'Cookie Policy',
+                        'Refund Policy',
+                        'Return Policy'
+                      ];
+                      const isSinglePartyType = singlePartyTypes.some(type => 
+                        data.type.toLowerCase().includes(type.toLowerCase())
+                      );
+                      const minParties = isSinglePartyType ? 1 : 2;
+                      const validParties = data.parties.filter(p => p.trim()).length;
+                      
+                      return !data.description || validParties < minParties;
+                    })()}
                     className="bg-gradient-to-r from-blue-500 via-purple-500 to-emerald-500 text-white px-10 py-4 rounded-xl font-semibold hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex items-center gap-3 mx-auto disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none text-lg"
                   >
                     <SparklesIcon className="w-6 h-6" />
@@ -420,7 +448,33 @@ ${data.parties.filter(p => p.trim()).map((_, index) =>
                 <div className="mt-6 animate-slideInLeft">
                   <div className="bg-gradient-to-r from-blue-50 to-emerald-50 rounded-xl p-4 border border-blue-200">
                     <p className="text-sm text-gray-700 font-medium">
-                      ✨ <span className="font-semibold">Requirements:</span> Contract description and at least 2 parties
+                      ✨ <span className="font-semibold">Requirements:</span> {(() => {
+                        const singlePartyTypes = [
+                          'NDA', 
+                          'Non-Disclosure Agreement', 
+                          'Confidentiality Agreement', 
+                          'Privacy Policy', 
+                          'Terms of Service', 
+                          'Disclaimer', 
+                          'Waiver',
+                          'Liability Waiver',
+                          'Release Form',
+                          'Consent Form',
+                          'Authorization Form',
+                          'Code of Conduct',
+                          'Acceptable Use Policy',
+                          'Data Processing Agreement',
+                          'Cookie Policy',
+                          'Refund Policy',
+                          'Return Policy'
+                        ];
+                        const isSinglePartyType = singlePartyTypes.some(type => 
+                          data.type.toLowerCase().includes(type.toLowerCase())
+                        );
+                        return isSinglePartyType 
+                          ? 'Contract description and at least 1 party'
+                          : 'Contract description and at least 2 parties';
+                      })()}
                     </p>
                   </div>
                 </div>
