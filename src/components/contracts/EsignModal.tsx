@@ -75,7 +75,25 @@ export default function EsignModal({ isOpen, onClose, onSend, contractTitle, con
 
   const removeSigner = (id: string) => {
     // Allow removal if more than 1 signer, or if it's a single-party contract
-    const singlePartyTypes = ['NDA', 'Non-Disclosure Agreement', 'Confidentiality Agreement', 'Privacy Policy', 'Terms of Service', 'Disclaimer', 'Waiver'];
+    const singlePartyTypes = [
+      'NDA', 
+      'Non-Disclosure Agreement', 
+      'Confidentiality Agreement', 
+      'Privacy Policy', 
+      'Terms of Service', 
+      'Disclaimer', 
+      'Waiver',
+      'Liability Waiver',
+      'Release Form',
+      'Consent Form',
+      'Authorization Form',
+      'Code of Conduct',
+      'Acceptable Use Policy',
+      'Data Processing Agreement',
+      'Cookie Policy',
+      'Refund Policy',
+      'Return Policy'
+    ];
     const isSinglePartyType = singlePartyTypes.some(type => 
       contractTitle.toLowerCase().includes(type.toLowerCase())
     );
@@ -98,7 +116,25 @@ export default function EsignModal({ isOpen, onClose, onSend, contractTitle, con
     );
 
     // Check if this is a single-party contract
-    const singlePartyTypes = ['NDA', 'Non-Disclosure Agreement', 'Confidentiality Agreement', 'Privacy Policy', 'Terms of Service', 'Disclaimer', 'Waiver'];
+    const singlePartyTypes = [
+      'NDA', 
+      'Non-Disclosure Agreement', 
+      'Confidentiality Agreement', 
+      'Privacy Policy', 
+      'Terms of Service', 
+      'Disclaimer', 
+      'Waiver',
+      'Liability Waiver',
+      'Release Form',
+      'Consent Form',
+      'Authorization Form',
+      'Code of Conduct',
+      'Acceptable Use Policy',
+      'Data Processing Agreement',
+      'Cookie Policy',
+      'Refund Policy',
+      'Return Policy'
+    ];
     const isSinglePartyType = singlePartyTypes.some(type => 
       contractTitle.toLowerCase().includes(type.toLowerCase())
     );

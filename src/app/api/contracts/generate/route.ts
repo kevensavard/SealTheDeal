@@ -67,7 +67,25 @@ Important: Include equipment condition, maintenance responsibilities, and return
     }
 
     // Check if this is a single-party contract
-    const singlePartyTypes = ['NDA', 'Non-Disclosure Agreement', 'Confidentiality Agreement', 'Privacy Policy', 'Terms of Service', 'Disclaimer', 'Waiver'];
+    const singlePartyTypes = [
+      'NDA', 
+      'Non-Disclosure Agreement', 
+      'Confidentiality Agreement', 
+      'Privacy Policy', 
+      'Terms of Service', 
+      'Disclaimer', 
+      'Waiver',
+      'Liability Waiver',
+      'Release Form',
+      'Consent Form',
+      'Authorization Form',
+      'Code of Conduct',
+      'Acceptable Use Policy',
+      'Data Processing Agreement',
+      'Cookie Policy',
+      'Refund Policy',
+      'Return Policy'
+    ];
     const isSinglePartyType = singlePartyTypes.some(singleType => 
       type.toLowerCase().includes(singleType.toLowerCase())
     );

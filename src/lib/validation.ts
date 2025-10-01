@@ -56,7 +56,25 @@ export function validateContractData(data: any): void {
   }
 
   // Define contract types that allow single party
-  const singlePartyTypes = ['NDA', 'Non-Disclosure Agreement', 'Confidentiality Agreement', 'Privacy Policy', 'Terms of Service', 'Disclaimer', 'Waiver'];
+  const singlePartyTypes = [
+    'NDA', 
+    'Non-Disclosure Agreement', 
+    'Confidentiality Agreement', 
+    'Privacy Policy', 
+    'Terms of Service', 
+    'Disclaimer', 
+    'Waiver',
+    'Liability Waiver',
+    'Release Form',
+    'Consent Form',
+    'Authorization Form',
+    'Code of Conduct',
+    'Acceptable Use Policy',
+    'Data Processing Agreement',
+    'Cookie Policy',
+    'Refund Policy',
+    'Return Policy'
+  ];
   
   // Check if this is a single-party contract type
   const isSinglePartyType = singlePartyTypes.some(type => 

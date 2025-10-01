@@ -54,6 +54,16 @@ const contractTypes = [
   'Terms of Service',
   'Disclaimer',
   'Waiver',
+  'Liability Waiver',
+  'Release Form',
+  'Consent Form',
+  'Authorization Form',
+  'Code of Conduct',
+  'Acceptable Use Policy',
+  'Data Processing Agreement',
+  'Cookie Policy',
+  'Refund Policy',
+  'Return Policy',
   'Service Agreement',
   'Consulting',
   'Employment',
@@ -139,7 +149,25 @@ export default function ContractForm({ data, onChange }: ContractFormProps) {
         <div className="space-y-3">
           {data.parties.map((party, index) => {
             // Define contract types that allow single party
-            const singlePartyTypes = ['NDA', 'Non-Disclosure Agreement', 'Confidentiality Agreement', 'Privacy Policy', 'Terms of Service', 'Disclaimer', 'Waiver'];
+            const singlePartyTypes = [
+              'NDA', 
+              'Non-Disclosure Agreement', 
+              'Confidentiality Agreement', 
+              'Privacy Policy', 
+              'Terms of Service', 
+              'Disclaimer', 
+              'Waiver',
+              'Liability Waiver',
+              'Release Form',
+              'Consent Form',
+              'Authorization Form',
+              'Code of Conduct',
+              'Acceptable Use Policy',
+              'Data Processing Agreement',
+              'Cookie Policy',
+              'Refund Policy',
+              'Return Policy'
+            ];
             const isSinglePartyType = singlePartyTypes.some(type => 
               data.type.toLowerCase().includes(type.toLowerCase())
             );
@@ -189,12 +217,30 @@ export default function ContractForm({ data, onChange }: ContractFormProps) {
         </div>
         <p className="text-xs text-slate-400 mt-1">
           {(() => {
-            const singlePartyTypes = ['NDA', 'Non-Disclosure Agreement', 'Confidentiality Agreement', 'Privacy Policy', 'Terms of Service', 'Disclaimer', 'Waiver'];
+            const singlePartyTypes = [
+              'NDA', 
+              'Non-Disclosure Agreement', 
+              'Confidentiality Agreement', 
+              'Privacy Policy', 
+              'Terms of Service', 
+              'Disclaimer', 
+              'Waiver',
+              'Liability Waiver',
+              'Release Form',
+              'Consent Form',
+              'Authorization Form',
+              'Code of Conduct',
+              'Acceptable Use Policy',
+              'Data Processing Agreement',
+              'Cookie Policy',
+              'Refund Policy',
+              'Return Policy'
+            ];
             const isSinglePartyType = singlePartyTypes.some(type => 
               data.type.toLowerCase().includes(type.toLowerCase())
             );
             return isSinglePartyType 
-              ? "For single-party contracts like NDAs, just enter the party name"
+              ? "For single-party contracts like NDAs, policies, and forms, just enter the party name"
               : "Include role/relationship (e.g., \"John Doe - Client\", \"Jane Smith - Freelancer\")";
           })()}
         </p>
