@@ -63,9 +63,24 @@ async function handlePost(request: Request) {
           passwordHash = crypto.createHash('sha256').update(password).digest('hex');
         }
         
-        // Create a ContractSigner record for this specific party
-        const contractSigner = await prisma.contractSigner.create({
-          data: {
+        // Upsert a ContractSigner record for this specific party (update if exists, create if not)
+        const contractSigner = await prisma.contractSigner.upsert({
+          where: {
+            contractId_signerEmail: {
+              contractId: contractId,
+              signerEmail: recipientEmail,
+            }
+          },
+          update: {
+            signerName: recipientName,
+            role: recipientRole || 'party',
+            signatureToken: signingToken,
+            passwordHash: passwordHash,
+            // Reset signature if resending
+            signedAt: null,
+            signatureData: null,
+          },
+          create: {
             contractId: contractId,
             signerName: recipientName,
             signerEmail: recipientEmail,

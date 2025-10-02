@@ -88,6 +88,7 @@ model ContractSigner {
 
   contract Contract @relation(fields: [contractId], references: [id], onDelete: Cascade)
 
+  @@unique([contractId, signerEmail])
   @@map("contract_signers")
 }
 
