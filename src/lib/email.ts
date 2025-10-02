@@ -83,6 +83,9 @@ export async function sendEmail(options: EmailOptions): Promise<boolean> {
 export async function sendContractForSignature(data: ContractEmailData): Promise<boolean> {
   const subject = `Contract for Signature: ${data.contractTitle}`;
   
+  // Debug: Log the URL being used in email
+  console.log('🔍 DEBUG: Email template using URL:', data.contractUrl);
+  
   const html = `
     <!DOCTYPE html>
     <html>

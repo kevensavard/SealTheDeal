@@ -78,6 +78,9 @@ async function handlePost(request: Request) {
     // Generate the signing URL
     const signingUrl = `https://sealthedeal.app/sign/${signingToken}`;
     
+    // Debug: Log the URL being generated
+    console.log('🔍 DEBUG: Generated signing URL:', signingUrl);
+    
     // Send email with signing link
     const emailSent = await sendContractForSignature({
       contractTitle: contract.title,
@@ -113,6 +116,9 @@ async function handlePost(request: Request) {
       recipientName,
       signingUrl,
     });
+    
+    // Debug: Log the URL being sent in email
+    console.log('🔍 DEBUG: URL being sent in email:', signingUrl);
 
     // Update contract status to SENT if not already
     if (contract.status === 'DRAFT') {
