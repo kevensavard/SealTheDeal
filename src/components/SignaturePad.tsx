@@ -40,6 +40,9 @@ export default function SignaturePad({ onSignatureChange, className = '' }: Sign
   }, []);
 
   const startDrawing = (e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>) => {
+    // Prevent default touch behavior to stop page scrolling on mobile
+    e.preventDefault();
+    
     setIsDrawing(true);
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -61,6 +64,9 @@ export default function SignaturePad({ onSignatureChange, className = '' }: Sign
   };
 
   const draw = (e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>) => {
+    // Prevent default touch behavior to stop page scrolling on mobile
+    e.preventDefault();
+    
     if (!isDrawing) return;
 
     const canvas = canvasRef.current;
@@ -82,7 +88,10 @@ export default function SignaturePad({ onSignatureChange, className = '' }: Sign
     ctx.stroke();
   };
 
-  const stopDrawing = () => {
+  const stopDrawing = (e?: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>) => {
+    // Prevent default touch behavior to stop page scrolling on mobile
+    if (e) e.preventDefault();
+    
     setIsDrawing(false);
     
     // Capture signature when drawing stops
@@ -162,6 +171,7 @@ export default function SignaturePad({ onSignatureChange, className = '' }: Sign
         <canvas
           ref={canvasRef}
           className="w-full h-32 bg-gray-100 rounded border cursor-crosshair"
+          style={{ touchAction: 'none' }}
           onMouseDown={startDrawing}
           onMouseMove={draw}
           onMouseUp={stopDrawing}
@@ -176,7 +186,7 @@ export default function SignaturePad({ onSignatureChange, className = '' }: Sign
           }}
           onTouchEnd={(e) => {
             e.preventDefault();
-            stopDrawing();
+            stopDrawing(e);
           }}
         />
         
