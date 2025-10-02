@@ -57,7 +57,7 @@ export async function sendEmail(options: EmailOptions): Promise<boolean> {
       html: options.html,
       'h:Reply-To': 'support@mail.sealthedeal.app',
       'h:X-Mailgun-Track': 'yes',
-      'h:X-Mailgun-Track-Clicks': 'yes',
+      'h:X-Mailgun-Track-Clicks': 'no',
       'h:X-Mailgun-Track-Opens': 'yes',
     };
 
