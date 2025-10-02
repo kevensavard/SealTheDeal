@@ -63,32 +63,42 @@ async function handlePost(request: Request) {
           passwordHash = crypto.createHash('sha256').update(password).digest('hex');
         }
         
-        // Upsert a ContractSigner record for this specific party (update if exists, create if not)
-        const contractSigner = await prisma.contractSigner.upsert({
+        // Check if signer already exists for this contract and email
+        const existingSigner = await prisma.contractSigner.findFirst({
           where: {
-            contractId_signerEmail: {
-              contractId: contractId,
-              signerEmail: recipientEmail,
-            }
-          },
-          update: {
-            signerName: recipientName,
-            role: recipientRole || 'party',
-            signatureToken: signingToken,
-            passwordHash: passwordHash,
-            // Reset signature if resending
-            signedAt: null,
-            signatureData: null,
-          },
-          create: {
             contractId: contractId,
-            signerName: recipientName,
             signerEmail: recipientEmail,
-            role: recipientRole || 'party',
-            signatureToken: signingToken,
-            passwordHash: passwordHash,
           }
         });
+        
+        let contractSigner;
+        if (existingSigner) {
+          // Update existing signer with new token and reset signature
+          contractSigner = await prisma.contractSigner.update({
+            where: { id: existingSigner.id },
+            data: {
+              signerName: recipientName,
+              role: recipientRole || 'party',
+              signatureToken: signingToken,
+              passwordHash: passwordHash,
+              // Reset signature if resending
+              signedAt: null,
+              signatureData: null,
+            }
+          });
+        } else {
+          // Create new signer
+          contractSigner = await prisma.contractSigner.create({
+            data: {
+              contractId: contractId,
+              signerName: recipientName,
+              signerEmail: recipientEmail,
+              role: recipientRole || 'party',
+              signatureToken: signingToken,
+              passwordHash: passwordHash,
+            }
+          });
+        }
     
     // Generate the signing URL
     const signingUrl = `https://sealthedeal.app/sign/${signingToken}`;
