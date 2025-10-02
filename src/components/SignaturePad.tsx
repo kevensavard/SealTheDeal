@@ -114,7 +114,7 @@ export default function SignaturePad({ onSignatureChange, className = '' }: Sign
       return false;
     });
     
-    if (hasContent && !hasSignature) {
+    if (hasContent) {
       setHasSignature(true);
       // Capture with white background
       const signatureData = canvas.toDataURL('image/png', 1.0);
