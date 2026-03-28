@@ -3,8 +3,10 @@ import { promisify } from 'util';
 
 const scryptAsync = promisify(scrypt);
 
-// In production, use environment variables for these keys
-const ENCRYPTION_KEY = process.env.ENCRYPTION_KEY || 'your-32-character-secret-key-here!'; // Must be 32 characters
+if (!process.env.ENCRYPTION_KEY) {
+  throw new Error('ENCRYPTION_KEY environment variable is required and must be 32 characters');
+}
+const ENCRYPTION_KEY = process.env.ENCRYPTION_KEY;
 const ALGORITHM = 'aes-256-gcm';
 
 export class EncryptionService {
